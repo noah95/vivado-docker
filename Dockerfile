@@ -2,7 +2,7 @@ FROM ubuntu:16.04
 
 MAINTAINER Noah Huetter <noahhuetter@gmail.com>
 
-# build with sudo docker build --build-arg VIVADO_TAR_HOST=localhost:8000 --build-arg VIVADO_TAR_FILE=Xilinx_Vivado_SDK_2017.2_0616_1 --build-arg VIVADO_VERSION=2017.2 -t vivado .
+# build with sudo docker build --build-arg VIVADO_TAR_HOST=host:8000 --build-arg VIVADO_TAR_FILE=Xilinx_Vivado_SDK_2017.2_0616_1 --build-arg VIVADO_VERSION=2017.2 -t vivado .
 
 #install dependences for:
 # * downloading Vivado (wget)
