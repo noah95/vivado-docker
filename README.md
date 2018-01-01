@@ -3,6 +3,14 @@
 Vivado installed into a docker image for CI purposes.
 
 ## Build instructions
+Download Vivado full tar.gz from Xilinx website
+```bash
+cd /path/to/Vivado/download
+python -m http.server 8000
+# in a new shell pull this repository and run
+chmod +x install.sh
+sudo ./install.sh
+```
 
 1. This docker file assumes the Vivado download is available on a webserver somewhere. This can easily be the build machine using the webserver in Python.
     ```shell
