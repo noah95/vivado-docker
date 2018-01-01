@@ -1,7 +1,8 @@
 # #### Vivado HL WebPACK Install Configuration ####
 Edition=Vivado HL WebPACK
 Destination=/opt/Xilinx
-Modules=Vivado:1,Vivado High Level Synthesis:1,Software Development Kit:0,DocNav:0,Artix-7:1,Zynq-7000:1
+Modules=Vivado:1,Vivado High Level Synthesis:0,Software Development Kit:0,DocNav:0,Artix-7,Kintex-7,Zynq-7000:1
+# Modules=Vivado:1,Vivado High Level Synthesis:1,Software Development Kit:0,DocNav:0,Artix-7:1,Zynq-7000:1
 #### Shortcut creation ####
 CreateProgramGroupShortcuts=0
 CreateShortcutsForAllUsers=0
