@@ -40,8 +40,10 @@ ARG VIVADO_VERSION
 
 #make a Vivado user
 RUN useradd -m vivado && echo "vivado:vivado" | chpasswd && adduser vivado sudo
-# Enable sudo without password
-RUN echo 'vivado ALL=(ALL:ALL) ALL' | sudo EDITOR='tee -a' visudo
+# Enable passwordless sudo for users under the "sudo" group
+RUN sed -i.bkp -e \
+      's/%sudo\s\+ALL=(ALL\(:ALL\)\?)\s\+ALL/%sudo ALL=NOPASSWD:ALL/g' \
+      /etc/sudoers
 
 USER vivado
 WORKDIR /home/vivado
