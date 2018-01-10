@@ -40,6 +40,8 @@ ARG VIVADO_VERSION
 
 #make a Vivado user
 RUN useradd -m vivado && echo "vivado:vivado" | chpasswd && adduser vivado sudo
+# Enable sudo without password
+RUN echo 'vivado ALL=(ALL:ALL) ALL' | sudo EDITOR='tee -a' visudo
 
 USER vivado
 WORKDIR /home/vivado
