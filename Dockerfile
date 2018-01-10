@@ -51,4 +51,4 @@ RUN echo "source /opt/Xilinx/Vivado/${VIVADO_VERSION}/settings64.sh" >> /home/vi
 
 #copy in the license file
 RUN mkdir /home/vivado/.Xilinx
-COPY Xilinx.lic /home/vivado/.Xilinx/
+#COPY Xilinx.lic /home/vivado/.Xilinx/
