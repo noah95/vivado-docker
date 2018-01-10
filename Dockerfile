@@ -22,6 +22,9 @@ RUN apt-get update && apt-get install -y \
   git \
   libjpeg62
 
+# Get sudo
+RUN apt-get update && apt-get install -y sudo && rm -rf /var/lib/apt/lists/*
+
 # Fix for libtiff.so.3
 RUN ln -s /usr/lib/x86_64-linux-gnu/libtiff.so.5 /usr/lib/x86_64-linux-gnu/libtiff.so.3
 
@@ -40,6 +43,7 @@ RUN echo "Downloading ${VIVADO_TAR_FILE} from ${VIVADO_TAR_HOST}" && \
   rm -rf ${VIVADO_TAR_FILE}*
 #make a Vivado user
 RUN adduser --disabled-password --gecos '' vivado
+RUN usermod -aG root vivado
 USER vivado
 WORKDIR /home/vivado
 #add vivado tools to path
