@@ -19,7 +19,11 @@ RUN apt-get update && apt-get install -y \
   libxrandr2 \
   libfreetype6 \
   libfontconfig \
-  git
+  git \
+  libjpeg62
+
+# Fix for libtiff.so.3
+RUN ln -s /usr/lib/x86_64-linux-gnu/libtiff.so.5 /usr/lib/x86_64-linux-gnu/libtiff.so.3
 
 # copy in config file
 COPY install_config.txt /
