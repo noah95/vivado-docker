@@ -31,12 +31,12 @@ COPY install_config.txt /
 ARG VIVADO_TAR_HOST
 ARG VIVADO_TAR_FILE
 ARG VIVADO_VERSION
-#RUN echo "Downloading ${VIVADO_TAR_FILE} from ${VIVADO_TAR_HOST}" && \
-#  wget ${VIVADO_TAR_HOST}/${VIVADO_TAR_FILE}.tar.gz -q && \
-#  echo "Extracting Vivado tar file" && \
-#  tar xzf ${VIVADO_TAR_FILE}.tar.gz && \
-#  /${VIVADO_TAR_FILE}/xsetup --agree 3rdPartyEULA,WebTalkTerms,XilinxEULA --batch Install --config install_config.txt && \
-#  rm -rf ${VIVADO_TAR_FILE}*
+RUN echo "Downloading ${VIVADO_TAR_FILE} from ${VIVADO_TAR_HOST}" && \
+  wget ${VIVADO_TAR_HOST}/${VIVADO_TAR_FILE}.tar.gz -q && \
+  echo "Extracting Vivado tar file" && \
+  tar xzf ${VIVADO_TAR_FILE}.tar.gz && \
+  /${VIVADO_TAR_FILE}/xsetup --agree 3rdPartyEULA,WebTalkTerms,XilinxEULA --batch Install --config install_config.txt && \
+  rm -rf ${VIVADO_TAR_FILE}*
 
 #make a Vivado user
 RUN useradd -m vivado && echo "vivado:vivado" | chpasswd && adduser vivado sudo
