@@ -21,6 +21,15 @@ RUN apt-get update && apt-get install -y \
   libfontconfig \
   git
 
+# HLS specific
+RUN apt-get update && apt-get install -y \
+ libjpeg62 libtiff5 libgtk-3-dev libgtk2.0-0
+RUN ln -s /usr/lib/x86_64-linux-gnu/libtiff.so.5 /usr/lib/x86_64-linux-gnu/libtiff.so.3
+
+# XSDK specific
+RUN apt-get update && apt-get install -y \
+ xvfb lib32ncurses5 lib32z1 lib32stdc++6
+
 # Get sudo
 RUN apt-get update && apt-get install -y sudo && rm -rf /var/lib/apt/lists/*
 
