@@ -19,16 +19,15 @@ RUN apt-get update && apt-get install -y \
   libxrandr2 \
   libfreetype6 \
   libfontconfig \
-  git
+  git \
+  curl \
+  libjpeg62 libtiff5 libgtk-3-dev libgtk2.0-0 \
+  xvfb lib32ncurses5 lib32z1 lib32stdc++6 \
+  lsb-release
+
 
 # HLS specific
-RUN apt-get update && apt-get install -y \
- libjpeg62 libtiff5 libgtk-3-dev libgtk2.0-0
 RUN ln -s /usr/lib/x86_64-linux-gnu/libtiff.so.5 /usr/lib/x86_64-linux-gnu/libtiff.so.3
-
-# XSDK specific
-RUN apt-get update && apt-get install -y \
- xvfb lib32ncurses5 lib32z1 lib32stdc++6
 
 # Get sudo
 RUN apt-get update && apt-get install -y sudo && rm -rf /var/lib/apt/lists/*
@@ -40,11 +39,15 @@ COPY install_config.txt /
 ARG VIVADO_TAR_HOST
 ARG VIVADO_TAR_FILE
 ARG VIVADO_VERSION
-RUN echo "Downloading ${VIVADO_TAR_FILE} from ${VIVADO_TAR_HOST}" && \
-  wget ${VIVADO_TAR_HOST}/${VIVADO_TAR_FILE}.tar.gz -q && \
-  echo "Extracting Vivado tar file" && \
-  tar xzf ${VIVADO_TAR_FILE}.tar.gz && \
-  /${VIVADO_TAR_FILE}/xsetup --agree 3rdPartyEULA,WebTalkTerms,XilinxEULA --batch Install --config install_config.txt && \
+
+RUN echo "Download and untar vivado" && \
+  curl ${VIVADO_TAR_HOST}/Xilinx_Vivado_SDK_2017.2_0616_1.tar.gz \
+  | tar -xz
+
+# Delete old releases
+RUN rm -rf /opt/Xilinx
+RUN echo "Installing Vivado" && \
+  ${VIVADO_TAR_FILE}/xsetup --agree 3rdPartyEULA,WebTalkTerms,XilinxEULA --batch Install --config install_config.txt && \
   rm -rf ${VIVADO_TAR_FILE}*
 
 #make a Vivado user
