@@ -2,8 +2,6 @@ FROM ubuntu:16.04
 
 MAINTAINER Noah Huetter <noahhuetter@gmail.com>
 
-# build with sudo docker build --build-arg VIVADO_TAR_HOST=$IP:8000 --build-arg VIVADO_TAR_FILE=Xilinx_Vivado_SDK_2017.3_1005_1 --build-arg VIVADO_VERSION=2017.3 -t vivado .
-
 #install dependences for:
 # * downloading Vivado (wget)
 # * xsim (gcc build-essential to also get make)
@@ -36,18 +34,18 @@ RUN apt-get update && apt-get install -y sudo && rm -rf /var/lib/apt/lists/*
 COPY install_config.txt /
 
 # download and run the install
-ARG VIVADO_TAR_HOST
+ARG VIVADO_HOST_FILE
 ARG VIVADO_TAR_FILE
 ARG VIVADO_VERSION
 
 RUN echo "Download and untar vivado" && \
-  curl ${VIVADO_TAR_HOST}/Xilinx_Vivado_SDK_2017.2_0616_1.tar.gz \
+  curl -L ${VIVADO_HOST_FILE} \
   | tar -xz
 
 # Delete old releases
 RUN rm -rf /opt/Xilinx
 RUN echo "Installing Vivado" && \
-  ${VIVADO_TAR_FILE}/xsetup --agree 3rdPartyEULA,WebTalkTerms,XilinxEULA --batch Install --config install_config.txt && \
+  ${VIVADO_TAR_FILE}/xsetup --agree XilinxEULA,3rdPartyEULA,WebTalkTerms --batch Install --config install_config.txt && \
   rm -rf ${VIVADO_TAR_FILE}*
 
 #make a Vivado user
