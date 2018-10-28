@@ -27,3 +27,24 @@ and run
 ```bash
 docker run -ti <IMAGE_ID>
 ```
+
+## X11 for Mac OSX
+### Setup
+
+1. Install [XQuartz](https://www.xquartz.org/)
+2. Activate the option ‘Allow connections from network clients’ in XQuartz settings
+3. reboot
+
+### Run
+```bash
+# Allow access
+xhost + 127.0.0.1
+
+# Run
+docker run -e DISPLAY=docker.for.mac.localhost:0 -ti docker-vivado:2018.2
+
+# Within container, run vivado
+vivado
+```
+![](https://i.imgur.com/Z8HMGwl.png)
+
